@@ -14,6 +14,7 @@ public partial class player : CharacterBody2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		//Build the reference and the nget the node for the AnimatedSprite2D node to call the builtin functions and fields.
 		_animatedSprite = GetNode<AnimatedSprite2D>("AnimatedSprite2D");
 	}
 
@@ -56,19 +57,19 @@ public partial class player : CharacterBody2D
 	// Method to update animations based on character state.
 	private void UpdateAnimations(float direction)
 {
-	// Determine the state using a ternary operator and switch expression
+	// Determine the state using a ternary operator and switch expression.
 	string state = IsOnFloor()
 		? direction == 0 ? "idle" : "run"
 		: Velocity.Y < 0 ? "jump" : "fall";
 
-	// Use a switch expression to determine the animation to play
+	// Use a switch expression to determine the animation to play.
 	_animatedSprite.Play(state switch
 	{
 		"idle" => "idle",
 		"run" => "run",
 		"jump" => "jump",
 		"fall" => "fall",
-		_ => "idle" // Default case if none of the above matches
+		_ => "idle" // Default case if none of the above matches.
 		});
 	}
 }
