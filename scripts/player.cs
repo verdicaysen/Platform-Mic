@@ -55,34 +55,20 @@ public partial class player : CharacterBody2D
 
 	// Method to update animations based on character state.
 	private void UpdateAnimations(float direction)
-	{
-		string state = "";
-		if (IsOnFloor())
-		{
-			state = direction == 0 ? "idle" : "run";
-		}
-		else
-		{
-			state = Velocity.Y < 0 ? "jump" : "fall";
-		}
+{
+	// Determine the state using a ternary operator and switch expression
+	string state = IsOnFloor()
+		? direction == 0 ? "idle" : "run"
+		: Velocity.Y < 0 ? "jump" : "fall";
 
-		switch (state)
-		{
-			case "idle":
-				_animatedSprite.Play("idle");
-				break;
-			case "run":
-				_animatedSprite.Play("run");
-				break;
-			case "jump":
-				_animatedSprite.Play("jump");
-				break;
-			case "fall":
-				_animatedSprite.Play("fall");
-				break;
-			default:
-				_animatedSprite.Play("idle");
-				break;
-		}
+	// Use a switch expression to determine the animation to play
+	_animatedSprite.Play(state switch
+	{
+		"idle" => "idle",
+		"run" => "run",
+		"jump" => "jump",
+		"fall" => "fall",
+		_ => "idle" // Default case if none of the above matches
+		});
 	}
 }
