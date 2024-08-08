@@ -4,9 +4,9 @@ using System;
 public partial class player : CharacterBody2D
 {
 	// Exported variables
-	[Export] public float Gravity = 400;
-	[Export] public float JumpPower = 250;
-	[Export] public float MoveSpeed = 150;
+	[Export] public float gravity = 400;
+	[Export] public float jumpPower = 250;
+	[Export] public float moveSpeed = 150;
 
 	// Link to AnimatedSprite2D node
 	private AnimatedSprite2D _animatedSprite;
@@ -23,17 +23,17 @@ public partial class player : CharacterBody2D
 		// Apply gravity if not on the floor.
 		if (!IsOnFloor())
 		{
-			Velocity = new Vector2(Velocity.X, Velocity.Y + (float)(Gravity * delta));
-			if (Velocity.Y > Gravity)
+			Velocity = new Vector2(Velocity.X, Velocity.Y + (float)(gravity * delta));
+			if (Velocity.Y > gravity)
 			{
-				Velocity = new Vector2(Velocity.X, Gravity);
+				Velocity = new Vector2(Velocity.X, gravity);
 			}
 		}
 
 		// Jump if not already in the air.
 		if (Input.IsActionJustPressed("jump") && IsOnFloor())
 		{
-			Velocity = new Vector2(Velocity.X, -JumpPower);
+			Velocity = new Vector2(Velocity.X, -jumpPower);
 		}
 
 		// Get movement direction.
@@ -46,11 +46,9 @@ public partial class player : CharacterBody2D
 		}
 
 		// Apply movement direction and speed.
-		Velocity = new Vector2(direction * MoveSpeed, Velocity.Y);
-
+		Velocity = new Vector2(direction * moveSpeed, Velocity.Y);
 		// Enable movement.
 		MoveAndSlide();
-
 		// Update animations.
 		UpdateAnimations(direction);
 	}
