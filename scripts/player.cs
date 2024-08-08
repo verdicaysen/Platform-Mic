@@ -66,10 +66,10 @@ public partial class player : CharacterBody2D
 	_animatedSprite.Play(state switch
 	{
 		"idle" => "idle",
-		"run" => "run",
+		"run"  => "run",
 		"jump" => "jump",
 		"fall" => "fall",
-		_ => "idle" // Default case if none of the above matches.
+		_ 	   => "idle" // Default case if none of the above matches.
 		});
 	}
 }
