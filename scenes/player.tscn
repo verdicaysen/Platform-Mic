@@ -219,6 +219,7 @@ autoplay = "idle"
 frame_progress = 0.5537
 
 [node name="Camera2D" type="Camera2D" parent="."]
+limit_bottom = 175
 limit_smoothed = true
 drag_horizontal_enabled = true
 drag_vertical_enabled = true

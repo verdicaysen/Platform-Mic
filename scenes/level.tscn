@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://o0j5676p2u7v"]
+[gd_scene load_steps=8 format=3 uid="uid://o0j5676p2u7v"]
 
 [ext_resource type="Script" path="res://scripts/Level.cs" id="1_gbj30"]
 [ext_resource type="PackedScene" uid="uid://bki7j8fmpdlh2" path="res://scenes/player.tscn" id="2_rxsvk"]
 [ext_resource type="Texture2D" uid="uid://bddcmlakr54hu" path="res://assets/textures/bg/Brown.png" id="3_w374k"]
 [ext_resource type="PackedScene" uid="uid://cr0iwpfxtf750" path="res://scenes/TrashCan.tscn" id="4_4gqqs"]
+[ext_resource type="PackedScene" uid="uid://b8tbhebtnf3ib" path="res://scenes/JumpPad.tscn" id="5_prfso"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fqptv"]
 
@@ -30,9 +31,14 @@ position = Vector2(231, 0)
 shape = SubResource("RectangleShape2D_0pp83")
 
 [node name="TrashCan" parent="." instance=ExtResource("4_4gqqs")]
-position = Vector2(160, 177)
+position = Vector2(-140, 177)
+scale = Vector2(1.5429, 0.477725)
 
 [node name="StartPosition" type="Marker2D" parent="."]
 position = Vector2(39, 108)
+
+[node name="JumpPad" parent="." instance=ExtResource("5_prfso")]
+position = Vector2(299, 126)
+collision_layer = 1
 
 [connection signal="body_entered" from="TrashCan" to="." method="_on_trash_can_body_entered"]

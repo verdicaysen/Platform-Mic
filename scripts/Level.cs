@@ -4,6 +4,7 @@ using System;
 public partial class Level : Node2D
 
 {
+    // Instance a version of the Marker2D StartPosition.
     private Marker2D myStartPosition;
 
     public override void _Ready()

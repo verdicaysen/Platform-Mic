@@ -7,6 +7,7 @@ public partial class player : CharacterBody2D
 	[Export] public float gravity = 400;
 	[Export] public float jumpPower = 250;
 	[Export] public float moveSpeed = 150;
+	
 
 	// Link to AnimatedSprite2D node
 	private AnimatedSprite2D _animatedSprite;
@@ -20,39 +21,49 @@ public partial class player : CharacterBody2D
 
 	// Called every frame.
 	public override void _PhysicsProcess(double delta)
+    {
+        // Apply gravity if not on the floor.
+        if (!IsOnFloor())
+        {
+            Velocity = new Vector2(Velocity.X, Velocity.Y + (float)(gravity * delta));
+            if (Velocity.Y > gravity)
+            {
+                Velocity = new Vector2(Velocity.X, gravity);
+            }
+        }
+
+        // Jump if not already in the air.
+        Jump(boost: 1f);
+
+        // Get movement direction.
+        float direction = Input.GetAxis("move_left", "move_right");
+
+        // Flip animation direction if necessary.
+        if (direction != 0)
+        {
+            _animatedSprite.FlipH = direction == -1;
+        }
+
+        // Apply movement direction and speed.
+        Velocity = new Vector2(direction * moveSpeed, Velocity.Y);
+        // Enable movement.
+        MoveAndSlide();
+        // Update animations.
+        UpdateAnimations(direction);
+    }
+
+	public void Boost(float boost = 1.0f)
 	{
-		// Apply gravity if not on the floor.
-		if (!IsOnFloor())
-		{
-			Velocity = new Vector2(Velocity.X, Velocity.Y + (float)(gravity * delta));
-			if (Velocity.Y > gravity)
-			{
-				Velocity = new Vector2(Velocity.X, gravity);
-			}
-		}
-
-		// Jump if not already in the air.
-		if (Input.IsActionJustPressed("jump") && IsOnFloor())
-		{
-			Velocity = new Vector2(Velocity.X, -jumpPower);
-		}
-
-		// Get movement direction.
-		float direction = Input.GetAxis("move_left", "move_right");
-
-		// Flip animation direction if necessary.
-		if (direction != 0)
-		{
-			_animatedSprite.FlipH = direction == -1;
-		}
-
-		// Apply movement direction and speed.
-		Velocity = new Vector2(direction * moveSpeed, Velocity.Y);
-		// Enable movement.
-		MoveAndSlide();
-		// Update animations.
-		UpdateAnimations(direction);
+		Velocity = new Vector2(Velocity.X, -jumpPower * boost);
 	}
+
+    public void Jump(float boost = 1.0f)
+    {
+        if (Input.IsActionJustPressed("jump") && IsOnFloor())
+        {
+            Velocity = new Vector2(Velocity.X, -jumpPower * boost);
+        }
+    }
 
 	// Method to update animations based on character state.
 	private void UpdateAnimations(float direction)
