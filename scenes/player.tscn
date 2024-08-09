@@ -204,6 +204,8 @@ animations = [{
 }]
 
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_ecdsl")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
